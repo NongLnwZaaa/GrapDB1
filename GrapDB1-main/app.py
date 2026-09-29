@@ -116,31 +116,89 @@ st.markdown(
 
 if page == "Dashboard":
     st.subheader("ภาพรวมระบบ")
+    # =========================
+    # Dashboard Metrics
+    # =========================
     m = get_dashboard_metrics()
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Students", m.get("students", 0))
-    c2.metric("Books", m.get("books", 0))
-    c3.metric("Borrowed relationships", m.get("borrows", 0))
-    c4.metric("Friend relationships", m.get("friendships", 0))
-
+    c1.metric(
+        "Students",
+        m.get("students", 0)
+    )
+    c2.metric(
+        "Books",
+        m.get("books", 0)
+    )
+    c3.metric(
+        "Borrowed relationships",
+        m.get("borrows", 0)
+    )
+    c4.metric(
+        "Friend relationships",
+        m.get("friendships", 0)
+    )
     st.divider()
+    # =========================
+    # รูปภาพตรงกลาง Dashboard
+    # =========================
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.image(
+            "image.jpg",
+            width=700
+        )
+    st.divider()
+    # =========================
+    # เลือกผู้ใช้
+    # =========================
     student_id = student_selector("dash_student")
     profile = get_profile(student_id)
-    
     if profile:
+
         left, right = st.columns([1, 2])
+        # =========================
+        # ข้อมูลนักศึกษา
+        # =========================
         with left:
-            st.markdown(f"### {profile['name']}")
-            st.write(f"**รหัส:** {profile['student_id']}")
-            st.write(f"**สาขา:** {profile['major']}")
-            st.write(f"**ชั้นปี:** {profile['year']}")
-            st.write("**ความสนใจ:** " + (", ".join(profile["interests"]) or "ยังไม่มี"))
+            st.markdown(
+                f"### {profile['name']}"
+            )
+            st.write(
+                f"**รหัส:** {profile['student_id']}"
+            )
+            st.write(
+                f"**สาขา:** {profile['major']}"
+            )
+            st.write(
+                f"**ชั้นปี:** {profile['year']}"
+            )
+            st.write(
+                "**ความสนใจ:** "
+                + (
+                    ", ".join(profile["interests"])
+                    or "ยังไม่มี"
+                )
+            )
+        # =========================
+        # ประวัติการยืม
+        # =========================
+
         with right:
             st.markdown("### ประวัติการยืม")
             if profile["borrowed"]:
-                st.dataframe(pd.DataFrame(profile["borrowed"]), use_container_width=True, hide_index=True)
+
+                st.dataframe(
+                    pd.DataFrame(
+                        profile["borrowed"]
+                    ),
+                    use_container_width=True,
+                    hide_index=True
+                )
             else:
-                st.info("ยังไม่มีประวัติการยืม")
+                st.info(
+                    "ยังไม่มีประวัติการยืม"
+                )
+
 
 elif page == "Recommendations":
     st.subheader("✨ หนังสือที่แนะนำ")
@@ -234,3 +292,4 @@ elif page == "Admin / Setup":
             seed_demo_data()
         st.success("สร้างข้อมูลตัวอย่างเรียบร้อยแล้ว")
         st.rerun()
+
