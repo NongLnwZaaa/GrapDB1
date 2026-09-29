@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import date
+from pathlib import Path
 
 import pandas as pd
 import streamlit as st
@@ -219,7 +220,7 @@ elif page == "Graph Explorer":
 elif page == "Admin / Setup":
     st.subheader("⚙️ Setup ข้อมูลตัวอย่าง")
     st.warning("ปุ่มนี้ไม่ลบข้อมูลเดิม และใช้ MERGE จึงสามารถกดซ้ำได้")
-    st.image("/image.jpg")
+    st.image(str(Path(__file__).parent / "image.jpg"))
     st.markdown(
         """
         **Graph schema**
