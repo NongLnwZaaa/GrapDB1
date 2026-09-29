@@ -219,7 +219,7 @@ elif page == "Graph Explorer":
 elif page == "Admin / Setup":
     st.subheader("⚙️ Setup ข้อมูลตัวอย่าง")
     st.warning("ปุ่มนี้ไม่ลบข้อมูลเดิม และใช้ MERGE จึงสามารถกดซ้ำได้")
-    st.img("image.jpg")
+    st.image("image.jpg")
     st.markdown(
         """
         **Graph schema**
